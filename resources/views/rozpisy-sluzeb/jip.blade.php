@@ -81,8 +81,8 @@
           <div class="ms-auto d-print-none col-auto">
             <div class="btn-list">
               <div class="d-flex justify-content-end">
-                <a class="btn btn-lime d-inline-block me-2" id="openCreateModal" data-bs-toggle="tooltip" data-bs-placement="left"
-                  data-bs-original-title="{{ __('Vytisknout') }}" href="{{ route('rozpisy-sluzeb.sluzby-pdf', $categorie->id) }}">
+                <a class="btn btn-lime d-inline-block me-2" id="openPrintModal" data-bs-toggle="tooltip" data-bs-placement="left"
+                  data-bs-original-title="{{ __('Vytisknout') }}">
                   <svg class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                     stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -400,8 +400,105 @@
     </div>
   @endsection
 
+  @section('modals')
+    {{-- Document Show Modal --}}
+    <div class="modal fade" id="printModal" role="dialog" aria-hidden="true" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content shadow-lg">
+          {{-- <div class="modal-header bg-{{ $categorie->color }}-lt">
+            <div class="modal-title">{{ $categorie->category_name }} na období od {{ $from }} do {{ $to }}</div>
+            <div class="avatar avatar-transparent bg-{{ $categorie->color }}-lt">
+              <svg class="icon text-{{ $categorie->color }}" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2"></path>
+                <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4"></path>
+                <path d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z"></path>
+              </svg>
+            </div>
+          </div> --}}
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-12">
+                <div id="printarea">
+                  <div class="card" style="height: 45rem">
+                    <div class="card-header bg-muted-lt">
+                      <div>
+                        <h2 class="ms-2 col-auto mb-0">{{ $categorie->category_name }} na období od {{ $from }} do {{ $to }}
+                        </h2>
+                      </div>
+                    </div>
+                    <div class="card-body card-body-scrollable card-body-scrollable-shadow p-1">
+                      <div class="table-responsive">
+                        <table class="table-vcenter card-table table">
+                          <thead>
+                            <tr>
+                              <th>Datum</th>
+                              <th>Služba</th>
+                              <th>Mobil</th>
+                              <th>Změna</th>
+                              <th>Příslužba</th>
+                              <th>Mobil</th>
+                              <th>Změna</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach ($daylist as $day)
+                              <tr>
+                                <td class="py-0">{{ \Carbon\Carbon::parse($day->date)->format('d. m.') }}</td>
+                                <td class="py-0">{{ $day->jip }}</td>
+                                <td class="py-0">{{ $day->jip_mobile }}</td>
+                                <td class="py-0"></td>
+                                <td class="py-0">{{ $day->jip }}</td>
+                                <td class="py-0">{{ $day->jip_mobile }}</td>
+                                <td class="py-0"></td>
+                              </tr>
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-muted hover-shadow" data-bs-dismiss="modal" type="button">
+              <svg class="icon icon-inline" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+                <path d="M10 10l4 4m0 -4l-4 4"></path>
+              </svg>
+              {{ __('Close') }}
+            </button>
+            <a class="btn btn-red ms-auto hover-shadow" id="print" type="button">
+              <svg class="icon icon-inline" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2"></path>
+                <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4"></path>
+                <path d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z"></path>
+              </svg>
+              {{ __('Vytisknout') }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  @endsection
+
   @section('scripts')
+    <script src="{{ asset('js/printThis.js') }}"></script>
     <script>
+      $('#print').on('click', function() {
+        $("#printarea").printThis();
+      })
+
+      $('#openPrintModal').click(function() {
+        $('#printModal').modal('show')
+      })
+
       $('.edit').on('change', function() {
         var value = $(this).val();
         var mobile = $(this).find(":selected").data('mobile');
