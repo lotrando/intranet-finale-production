@@ -5,6 +5,7 @@
 /storage/*.key
 /public/soubory
 /public/videa
+/public/foto
 /vendor
 .env
 .env.backup
