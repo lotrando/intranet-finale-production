@@ -156,7 +156,7 @@ Route::prefix('rozpisy-sluzeb')->name('rozpisy-sluzeb.')->group(function () {
     Route::get('zurnalni-sluzby/{id}', [PageController::class, 'rozpisSluzeb'])->name('zurnalni-sluzby');
     Route::get('nutricni-terapeuti/{id}', [PageController::class, 'rozpisSluzeb'])->name('nutricni-terapeuti');
     Route::get('vsechna/{id}', [PageController::class, 'rozpisSluzeb'])->name('vsechna');
-    Route::get('nelekari/{id}', [PageController::class, 'rozpisSluzeb'])->name('nelekari');
+    Route::get('sluzby-tisk/{id}', [PageController::class, 'generate_pdf'])->name('sluzby-pdf');
 });
 
 // Indikátory kvality

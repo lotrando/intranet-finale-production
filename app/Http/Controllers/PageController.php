@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
+use ZanySoft\LaravelPDF\PDF;
 
 class PageController extends Controller
 {
@@ -585,6 +586,7 @@ class PageController extends Controller
             ->whereStatus('Aktivní')
             ->orderBy('last_name')->get();
 
+        $os_sestry = Employee::whereDepartmentId(16)->whereStatus('Aktivní')->get();
         $nutricni = Employee::whereJobId(19)->whereStatus('Aktivní')->get();
 
         $now = Carbon::now();
@@ -625,6 +627,7 @@ class PageController extends Controller
             'daylistNext'       => $daylistNext,
             'doctors'           => $doctors,
             'doctorsJip'        => $doctorsJip,
+            'os_sestry'         => $os_sestry,
             'doctorsInterna'    => $doctorsInterna,
             'doctorsNeurologie' => $doctorsNeurologie,
             'doctorsRdg'        => $doctorsRdg,
@@ -847,12 +850,19 @@ class PageController extends Controller
     public function changeDoctorOperacniSaly(Request $request)
     {
         if (request()->ajax()) {
-            DB::table('calendar')
-                ->where('id', $request->id)
-                ->update([
-                    'operacni_saly' => $request->operacni_saly,
-                    'os_mobile'     => $request->os_mobile,
-                ]);
+            if ($request->os_a) {
+                DB::table('calendar')
+                    ->where('id', $request->id)
+                    ->update(['os_a'    => $request->os_a,]);
+            } elseif ($request->os_b) {
+                DB::table('calendar')
+                    ->where('id', $request->id)
+                    ->update(['os_b'    => $request->os_b,]);
+            } elseif ($request->os_c) {
+                DB::table('calendar')
+                    ->where('id', $request->id)
+                    ->update(['os_c'    => $request->os_c,]);
+            }
         }
         return response()->json(['success' => 'Služba upravena!']);
         Alert::toast('Služba upravena!', 'success')->position('center');
@@ -916,5 +926,29 @@ class PageController extends Controller
         }
         return response()->json(['success' => 'Služba upravena!']);
         Alert::toast('Služba upravena!', 'success')->position('center');
+    }
+
+    public function generate_pdf($id)
+    {
+        $categorie  = Category::where('id', $id)->first();
+
+        $now = Carbon::now();
+        $from = $now->startOfMonth()->format('d. m. Y');
+        $to = $now->endOfMonth()->format('d. m. Y');
+        $monthStartDate     = $now->startOfMonth()->format('Y-m-d');
+        $monthEndDate       = $now->endOfMonth()->format('Y-m-d');
+
+        $daylist = DB::table('calendar')
+            ->where('date', '>=', $monthStartDate)
+            ->where('date', '<=', $monthEndDate)
+            ->get();
+
+        return view('pdf.' . $categorie->folder_name . '', [
+            'title'       => $categorie->category_name,
+            'categorie'   => $categorie,
+            'from'        => $from,
+            'to'          => $to,
+            'daylist'     => $daylist,
+        ]);
     }
 }

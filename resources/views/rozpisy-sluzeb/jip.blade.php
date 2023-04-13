@@ -76,334 +76,353 @@
               {{ __(ucfirst($categorie->category_name)) ?? '' }}
             </h2>
           </div>
-        </div>
 
+          <!-- Page title actions buttons -->
+          <div class="ms-auto d-print-none col-auto">
+            <div class="btn-list">
+              <div class="d-flex justify-content-end">
+                <a class="btn btn-lime d-inline-block me-2" id="openCreateModal" data-bs-toggle="tooltip" data-bs-placement="left"
+                  data-bs-original-title="{{ __('Vytisknout') }}" href="{{ route('rozpisy-sluzeb.sluzby-pdf', $categorie->id) }}">
+                  <svg class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2"></path>
+                    <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4"></path>
+                    <path d="M7 13m0 2a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v4a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2z"></path>
+                  </svg>
+                  <span class="d-xs-none d-sm-inline d-md-inline d-lg-inline">{{ __('Vytisknout služby') }}</span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- Page Title Buttons End -->
+
+        </div>
+        {{-- Title End --}}
       </div>
-      {{-- Title End --}}
+      {{-- Container End --}}
     </div>
-    {{-- Container End --}}
-  </div>
-  {{-- Page header End --}}
+    {{-- Page header End --}}
 
-  {{-- Page body --}}
-  <div class="page-body">
-    <div class="container-fluid">
-      <div class="row p-2">
-        <div class="col-12 col-xl-4 mt-1">
-          <div class="card">
-            <div class="card-header bg-{{ $categorie->color }}-lt text-left">
-              <div class="d-flex justify-item-center align-items-center">
-                <div class="avatar bg-{{ $categorie->color }}-lt col-auto">
-                  <svg class="icon text-{{ $categorie->color }}" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                    fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4"></path>
-                    <circle cx="18" cy="18" r="4"></circle>
-                    <path d="M15 3v4"></path>
-                    <path d="M7 3v4"></path>
-                    <path d="M3 11h16"></path>
-                    <path d="M18 16.496v1.504l1 1"></path>
-                  </svg>
-                </div>
-                <div>
-                  <h2 class="ms-2 col-auto mb-0">{{ $categorie->category_name }} na období od {{ $from }} do {{ $to }}</h2>
+    {{-- Page body --}}
+    <div class="page-body">
+      <div class="container-fluid">
+        <div class="row p-2">
+          <div class="col-12 col-xl-4 mt-1">
+            <div class="card">
+              <div class="card-header bg-{{ $categorie->color }}-lt text-left">
+                <div class="d-flex justify-item-center align-items-center">
+                  <div class="avatar bg-{{ $categorie->color }}-lt col-auto">
+                    <svg class="icon text-{{ $categorie->color }}" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                      fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                      <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4"></path>
+                      <circle cx="18" cy="18" r="4"></circle>
+                      <path d="M15 3v4"></path>
+                      <path d="M7 3v4"></path>
+                      <path d="M3 11h16"></path>
+                      <path d="M18 16.496v1.504l1 1"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h2 class="ms-2 col-auto mb-0">{{ $categorie->category_name }} na období od {{ $from }} do {{ $to }}</h2>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="card-body card-body-scrollable card-body-scrollable-shadow">
-              <div class="divide-y">
-                @foreach ($daylist as $day)
-                  <div>
-                    <div class="row d-flex align-items-center justify-content-between">
-                      <div class="col-auto">
+              <div class="card-body card-body-scrollable card-body-scrollable-shadow">
+                <div class="divide-y">
+                  @foreach ($daylist as $day)
+                    <div>
+                      <div class="row d-flex align-items-center justify-content-between">
+                        <div class="col-auto">
+                          @if (date('N', strtotime($day->date)) >= 6)
+                            <span class="avatar bg-pink-lt"><strong>{{ Carbon\Carbon::parse($day->date)->format('d|m') }}</strong></span>
+                          @elseif (Carbon\Carbon::parse($day->date) == Carbon\Carbon::today())
+                            <span class="avatar bg-lime-lt"><strong>{{ Carbon\Carbon::parse($day->date)->format('d|m') }}</strong></span>
+                          @else
+                            <span class="avatar bg-blue-lt"><strong>{{ Carbon\Carbon::parse($day->date)->format('d|m') }}</strong></span>
+                          @endif
+                        </div>
                         @if (date('N', strtotime($day->date)) >= 6)
-                          <span class="avatar bg-pink-lt"><strong>{{ Carbon\Carbon::parse($day->date)->format('d|m') }}</strong></span>
+                          <div class="d-flex align-items-center justify-content-start col-1">
+                            <span>
+                              <div class="text-pink">{{ Carbon\Carbon::parse($day->date)->locale('cs')->dayName }}</div>
+                            </span>
+                          </div>
                         @elseif (Carbon\Carbon::parse($day->date) == Carbon\Carbon::today())
-                          <span class="avatar bg-lime-lt"><strong>{{ Carbon\Carbon::parse($day->date)->format('d|m') }}</strong></span>
+                          <div class="d-flex align-items-center justify-content-start col-1">
+                            <span>
+                              <div class="text-lime">{{ Carbon\Carbon::parse($day->date)->locale('cs')->dayName }}</div>
+                            </span>
+                          </div>
                         @else
-                          <span class="avatar bg-blue-lt"><strong>{{ Carbon\Carbon::parse($day->date)->format('d|m') }}</strong></span>
+                          <div class="d-flex align-items-center justify-content-start col-1">
+                            <span>
+                              <div class="text-azure">{{ Carbon\Carbon::parse($day->date)->locale('cs')->dayName }}</div>
+                            </span>
+                          </div>
                         @endif
+                        @auth
+                          <div class="col-12 col-lg-4">
+                            <div class="text-blue"> {{ $day->jip }}</div>
+                            <div class="text-azure">{{ $day->jip_mobile }}</div>
+                          </div>
+                          <div class="col-12 col-lg-5">
+                            <select class="form-select edit" name="jip[{{ $day->id }}]" data-id="{{ $day->id }}">
+                              <option value="">Změnit lékaře</option>
+                              @foreach ($doctorsJip as $doctor)
+                                <option value="{{ $doctor->title_preffix }} {{ $doctor->last_name }} {{ substr($doctor->first_name, 0, 1) }}."
+                                  @if (old('jip[' . $day->id . ']') == $doctor->title_preffix . ' ' . $doctor->last_name . ' ' . substr($doctor->first_name, 0, 1) . '.') selected @endif data-mobile="{{ $doctor->mobile }}">
+                                  {{ $doctor->title_preffix }} {{ $doctor->last_name }} {{ substr($doctor->first_name, 0, 1) }}.
+                                </option>
+                              @endforeach
+                            </select>
+                          </div>
+                        @else
+                          <div class="d-flex-column align-items-center justify-content-center col-3">
+                            <div class="text-truncate fw-bold">
+                              {{ $day->jip }}
+                            </div>
+                            <div class="text-azure text-start">
+                              {{ $day->jip_mobile }}
+                            </div>
+                          </div>
+                          <div class="d-flex-column align-items-center justify-content-start col-4">
+                            <div class="text-truncate fw-bold">
+                              {{ $day->jip }}
+                            </div>
+                            <div class="text-azure text-start">
+                              {{ $day->jip_mobile }}
+                            </div>
+                          </div>
+                        @endauth
                       </div>
-                      @if (date('N', strtotime($day->date)) >= 6)
-                        <div class="d-flex align-items-center justify-content-start col-1">
-                          <span>
-                            <div class="text-pink">{{ Carbon\Carbon::parse($day->date)->locale('cs')->dayName }}</div>
-                          </span>
-                        </div>
-                      @elseif (Carbon\Carbon::parse($day->date) == Carbon\Carbon::today())
-                        <div class="d-flex align-items-center justify-content-start col-1">
-                          <span>
-                            <div class="text-lime">{{ Carbon\Carbon::parse($day->date)->locale('cs')->dayName }}</div>
-                          </span>
-                        </div>
-                      @else
-                        <div class="d-flex align-items-center justify-content-start col-1">
-                          <span>
-                            <div class="text-azure">{{ Carbon\Carbon::parse($day->date)->locale('cs')->dayName }}</div>
-                          </span>
-                        </div>
-                      @endif
-                      @auth
-                        <div class="col-12 col-lg-4">
-                          <div class="text-blue"> {{ $day->jip }}</div>
-                          <div class="text-azure">{{ $day->jip_mobile }}</div>
-                        </div>
-                        <div class="col-12 col-lg-5">
-                          <select class="form-select edit" name="jip[{{ $day->id }}]" data-id="{{ $day->id }}">
-                            <option value="">Změnit lékaře</option>
-                            @foreach ($doctorsJip as $doctor)
-                              <option value="{{ $doctor->title_preffix }} {{ $doctor->last_name }} {{ substr($doctor->first_name, 0, 1) }}."
-                                @if (old('jip[' . $day->id . ']') == $doctor->title_preffix . ' ' . $doctor->last_name . ' ' . substr($doctor->first_name, 0, 1) . '.') selected @endif data-mobile="{{ $doctor->mobile }}">
-                                {{ $doctor->title_preffix }} {{ $doctor->last_name }} {{ substr($doctor->first_name, 0, 1) }}.
-                              </option>
-                            @endforeach
-                          </select>
-                        </div>
-                      @else
-                        <div class="d-flex-column align-items-center justify-content-center col-3">
-                          <div class="text-truncate fw-bold">
-                            {{ $day->jip }}
-                          </div>
-                          <div class="text-azure text-start">
-                            {{ $day->jip_mobile }}
-                          </div>
-                        </div>
-                        <div class="d-flex-column align-items-center justify-content-start col-4">
-                          <div class="text-truncate fw-bold">
-                            {{ $day->jip }}
-                          </div>
-                          <div class="text-azure text-start">
-                            {{ $day->jip_mobile }}
-                          </div>
-                        </div>
-                      @endauth
                     </div>
-                  </div>
-                @endforeach
+                  @endforeach
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-12 col-xl-4 mt-1">
-          <div class="card">
-            <div class="card-header bg-{{ $categorie->color }}-lt text-left">
-              <div class="d-flex justify-item-center align-items-center">
-                <div class="avatar bg-{{ $categorie->color }}-lt col-auto">
-                  <svg class="icon text-{{ $categorie->color }}" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                    fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4"></path>
-                    <circle cx="18" cy="18" r="4"></circle>
-                    <path d="M15 3v4"></path>
-                    <path d="M7 3v4"></path>
-                    <path d="M3 11h16"></path>
-                    <path d="M18 16.496v1.504l1 1"></path>
-                  </svg>
-                </div>
-                <div>
-                  <h2 class="ms-2 col-auto mb-0">{{ $categorie->category_name }} - Předešlý měsíc</h2>
+          <div class="col-12 col-xl-4 mt-1">
+            <div class="card">
+              <div class="card-header bg-{{ $categorie->color }}-lt text-left">
+                <div class="d-flex justify-item-center align-items-center">
+                  <div class="avatar bg-{{ $categorie->color }}-lt col-auto">
+                    <svg class="icon text-{{ $categorie->color }}" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                      fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                      <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4"></path>
+                      <circle cx="18" cy="18" r="4"></circle>
+                      <path d="M15 3v4"></path>
+                      <path d="M7 3v4"></path>
+                      <path d="M3 11h16"></path>
+                      <path d="M18 16.496v1.504l1 1"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h2 class="ms-2 col-auto mb-0">{{ $categorie->category_name }} - Předešlý měsíc</h2>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="card-body card-body-scrollable card-body-scrollable-shadow">
-              <div class="divide-y">
-                @foreach ($daylistPrev as $day)
-                  <div>
-                    <div class="row d-flex align-items-center justify-content-between">
-                      <div class="col-auto">
+              <div class="card-body card-body-scrollable card-body-scrollable-shadow">
+                <div class="divide-y">
+                  @foreach ($daylistPrev as $day)
+                    <div>
+                      <div class="row d-flex align-items-center justify-content-between">
+                        <div class="col-auto">
+                          @if (date('N', strtotime($day->date)) >= 6)
+                            <span class="avatar bg-pink-lt"><strong>{{ Carbon\Carbon::parse($day->date)->format('d|m') }}</strong></span>
+                          @elseif (Carbon\Carbon::parse($day->date) == Carbon\Carbon::today())
+                            <span class="avatar bg-lime-lt"><strong>{{ Carbon\Carbon::parse($day->date)->format('d|m') }}</strong></span>
+                          @else
+                            <span class="avatar bg-blue-lt"><strong>{{ Carbon\Carbon::parse($day->date)->format('d|m') }}</strong></span>
+                          @endif
+                        </div>
                         @if (date('N', strtotime($day->date)) >= 6)
-                          <span class="avatar bg-pink-lt"><strong>{{ Carbon\Carbon::parse($day->date)->format('d|m') }}</strong></span>
+                          <div class="d-flex align-items-center justify-content-start col-1">
+                            <span>
+                              <div class="text-pink">{{ Carbon\Carbon::parse($day->date)->locale('cs')->dayName }}</div>
+                            </span>
+                          </div>
                         @elseif (Carbon\Carbon::parse($day->date) == Carbon\Carbon::today())
-                          <span class="avatar bg-lime-lt"><strong>{{ Carbon\Carbon::parse($day->date)->format('d|m') }}</strong></span>
+                          <div class="d-flex align-items-center justify-content-start col-1">
+                            <span>
+                              <div class="text-lime">{{ Carbon\Carbon::parse($day->date)->locale('cs')->dayName }}</div>
+                            </span>
+                          </div>
                         @else
-                          <span class="avatar bg-blue-lt"><strong>{{ Carbon\Carbon::parse($day->date)->format('d|m') }}</strong></span>
+                          <div class="d-flex align-items-center justify-content-start col-1">
+                            <span>
+                              <div class="text-azure">{{ Carbon\Carbon::parse($day->date)->locale('cs')->dayName }}</div>
+                            </span>
+                          </div>
                         @endif
+                        @auth
+                          <div class="col-12 col-lg-4">
+                            <div class="text-blue"> {{ $day->jip }}</div>
+                            <div class="text-azure">{{ $day->jip_mobile }}</div>
+                          </div>
+                          <div class="col-12 col-lg-5">
+                            <select class="form-select edit" name="jip[{{ $day->id }}]" data-id="{{ $day->id }}">
+                              <option value="">Změnit lékaře</option>
+                              @foreach ($doctorsJip as $doctor)
+                                <option value="{{ $doctor->title_preffix }} {{ $doctor->last_name }} {{ substr($doctor->first_name, 0, 1) }}."
+                                  @if (old('jip[' . $day->id . ']') == $doctor->title_preffix . ' ' . $doctor->last_name . ' ' . substr($doctor->first_name, 0, 1) . '.') selected @endif data-mobile="{{ $doctor->mobile }}">
+                                  {{ $doctor->title_preffix }} {{ $doctor->last_name }} {{ substr($doctor->first_name, 0, 1) }}.
+                                </option>
+                              @endforeach
+                            </select>
+                          </div>
+                        @else
+                          <div class="d-flex-column align-items-center justify-content-center col-3">
+                            <div class="text-truncate fw-bold">
+                              {{ $day->jip }}
+                            </div>
+                            <div class="text-azure text-start">
+                              {{ $day->jip_mobile }}
+                            </div>
+                          </div>
+                          <div class="d-flex-column align-items-center justify-content-start col-4">
+                            <div class="text-truncate fw-bold">
+                              {{ $day->jip }}
+                            </div>
+                            <div class="text-azure text-start">
+                              {{ $day->jip_mobile }}
+                            </div>
+                          </div>
+                        @endauth
                       </div>
-                      @if (date('N', strtotime($day->date)) >= 6)
-                        <div class="d-flex align-items-center justify-content-start col-1">
-                          <span>
-                            <div class="text-pink">{{ Carbon\Carbon::parse($day->date)->locale('cs')->dayName }}</div>
-                          </span>
-                        </div>
-                      @elseif (Carbon\Carbon::parse($day->date) == Carbon\Carbon::today())
-                        <div class="d-flex align-items-center justify-content-start col-1">
-                          <span>
-                            <div class="text-lime">{{ Carbon\Carbon::parse($day->date)->locale('cs')->dayName }}</div>
-                          </span>
-                        </div>
-                      @else
-                        <div class="d-flex align-items-center justify-content-start col-1">
-                          <span>
-                            <div class="text-azure">{{ Carbon\Carbon::parse($day->date)->locale('cs')->dayName }}</div>
-                          </span>
-                        </div>
-                      @endif
-                      @auth
-                        <div class="col-12 col-lg-4">
-                          <div class="text-blue"> {{ $day->jip }}</div>
-                          <div class="text-azure">{{ $day->jip_mobile }}</div>
-                        </div>
-                        <div class="col-12 col-lg-5">
-                          <select class="form-select edit" name="jip[{{ $day->id }}]" data-id="{{ $day->id }}">
-                            <option value="">Změnit lékaře</option>
-                            @foreach ($doctorsJip as $doctor)
-                              <option value="{{ $doctor->title_preffix }} {{ $doctor->last_name }} {{ substr($doctor->first_name, 0, 1) }}."
-                                @if (old('jip[' . $day->id . ']') == $doctor->title_preffix . ' ' . $doctor->last_name . ' ' . substr($doctor->first_name, 0, 1) . '.') selected @endif data-mobile="{{ $doctor->mobile }}">
-                                {{ $doctor->title_preffix }} {{ $doctor->last_name }} {{ substr($doctor->first_name, 0, 1) }}.
-                              </option>
-                            @endforeach
-                          </select>
-                        </div>
-                      @else
-                        <div class="d-flex-column align-items-center justify-content-center col-3">
-                          <div class="text-truncate fw-bold">
-                            {{ $day->jip }}
-                          </div>
-                          <div class="text-azure text-start">
-                            {{ $day->jip_mobile }}
-                          </div>
-                        </div>
-                        <div class="d-flex-column align-items-center justify-content-start col-4">
-                          <div class="text-truncate fw-bold">
-                            {{ $day->jip }}
-                          </div>
-                          <div class="text-azure text-start">
-                            {{ $day->jip_mobile }}
-                          </div>
-                        </div>
-                      @endauth
                     </div>
-                  </div>
-                @endforeach
+                  @endforeach
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-12 col-xl-4 mt-1">
-          <div class="card">
-            <div class="card-header bg-{{ $categorie->color }}-lt text-left">
-              <div class="d-flex justify-item-center align-items-center">
-                <div class="avatar bg-{{ $categorie->color }}-lt col-auto">
-                  <svg class="icon text-{{ $categorie->color }}" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                    fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4"></path>
-                    <circle cx="18" cy="18" r="4"></circle>
-                    <path d="M15 3v4"></path>
-                    <path d="M7 3v4"></path>
-                    <path d="M3 11h16"></path>
-                    <path d="M18 16.496v1.504l1 1"></path>
-                  </svg>
-                </div>
-                <div>
-                  <h2 class="ms-2 col-auto mb-0">{{ $categorie->category_name }} - Následující měsíc</h2>
+          <div class="col-12 col-xl-4 mt-1">
+            <div class="card">
+              <div class="card-header bg-{{ $categorie->color }}-lt text-left">
+                <div class="d-flex justify-item-center align-items-center">
+                  <div class="avatar bg-{{ $categorie->color }}-lt col-auto">
+                    <svg class="icon text-{{ $categorie->color }}" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                      fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                      <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4"></path>
+                      <circle cx="18" cy="18" r="4"></circle>
+                      <path d="M15 3v4"></path>
+                      <path d="M7 3v4"></path>
+                      <path d="M3 11h16"></path>
+                      <path d="M18 16.496v1.504l1 1"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h2 class="ms-2 col-auto mb-0">{{ $categorie->category_name }} - Následující měsíc</h2>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="card-body">
-              <div class="divide-y">
-                @foreach ($daylistNext as $day)
-                  <div>
-                    <div class="row d-flex align-items-center justify-content-between">
-                      <div class="col-auto">
+              <div class="card-body">
+                <div class="divide-y">
+                  @foreach ($daylistNext as $day)
+                    <div>
+                      <div class="row d-flex align-items-center justify-content-between">
+                        <div class="col-auto">
+                          @if (date('N', strtotime($day->date)) >= 6)
+                            <span class="avatar bg-pink-lt"><strong>{{ Carbon\Carbon::parse($day->date)->format('d|m') }}</strong></span>
+                          @elseif (Carbon\Carbon::parse($day->date) == Carbon\Carbon::today())
+                            <span class="avatar bg-lime-lt"><strong>{{ Carbon\Carbon::parse($day->date)->format('d|m') }}</strong></span>
+                          @else
+                            <span class="avatar bg-blue-lt"><strong>{{ Carbon\Carbon::parse($day->date)->format('d|m') }}</strong></span>
+                          @endif
+                        </div>
                         @if (date('N', strtotime($day->date)) >= 6)
-                          <span class="avatar bg-pink-lt"><strong>{{ Carbon\Carbon::parse($day->date)->format('d|m') }}</strong></span>
+                          <div class="d-flex align-items-center justify-content-start col-1">
+                            <span>
+                              <div class="text-pink">{{ Carbon\Carbon::parse($day->date)->locale('cs')->dayName }}</div>
+                            </span>
+                          </div>
                         @elseif (Carbon\Carbon::parse($day->date) == Carbon\Carbon::today())
-                          <span class="avatar bg-lime-lt"><strong>{{ Carbon\Carbon::parse($day->date)->format('d|m') }}</strong></span>
+                          <div class="d-flex align-items-center justify-content-start col-1">
+                            <span>
+                              <div class="text-lime">{{ Carbon\Carbon::parse($day->date)->locale('cs')->dayName }}</div>
+                            </span>
+                          </div>
                         @else
-                          <span class="avatar bg-blue-lt"><strong>{{ Carbon\Carbon::parse($day->date)->format('d|m') }}</strong></span>
+                          <div class="d-flex align-items-center justify-content-start col-1">
+                            <span>
+                              <div class="text-azure">{{ Carbon\Carbon::parse($day->date)->locale('cs')->dayName }}</div>
+                            </span>
+                          </div>
                         @endif
+                        @auth
+                          <div class="col-12 col-lg-4">
+                            <div class="text-blue"> {{ $day->jip }}</div>
+                            <div class="text-azure">{{ $day->jip_mobile }}</div>
+                          </div>
+                          <div class="col-12 col-lg-5">
+                            <select class="form-select edit" name="jip[{{ $day->id }}]" data-id="{{ $day->id }}">
+                              <option value="">Změnit lékaře</option>
+                              @foreach ($doctorsJip as $doctor)
+                                <option value="{{ $doctor->title_preffix }} {{ $doctor->last_name }} {{ substr($doctor->first_name, 0, 1) }}."
+                                  @if (old('jip[' . $day->id . ']') == $doctor->title_preffix . ' ' . $doctor->last_name . ' ' . substr($doctor->first_name, 0, 1) . '.') selected @endif data-mobile="{{ $doctor->mobile }}">
+                                  {{ $doctor->title_preffix }} {{ $doctor->last_name }} {{ substr($doctor->first_name, 0, 1) }}.
+                                </option>
+                              @endforeach
+                            </select>
+                          </div>
+                        @else
+                          <div class="d-flex-column align-items-center justify-content-center col-3">
+                            <div class="text-truncate fw-bold">
+                              {{ $day->jip }}
+                            </div>
+                            <div class="text-azure text-start">
+                              {{ $day->jip_mobile }}
+                            </div>
+                          </div>
+                          <div class="d-flex-column align-items-center justify-content-start col-4">
+                            <div class="text-truncate fw-bold">
+                              {{ $day->jip }}
+                            </div>
+                            <div class="text-azure text-start">
+                              {{ $day->jip_mobile }}
+                            </div>
+                          </div>
+                        @endauth
                       </div>
-                      @if (date('N', strtotime($day->date)) >= 6)
-                        <div class="d-flex align-items-center justify-content-start col-1">
-                          <span>
-                            <div class="text-pink">{{ Carbon\Carbon::parse($day->date)->locale('cs')->dayName }}</div>
-                          </span>
-                        </div>
-                      @elseif (Carbon\Carbon::parse($day->date) == Carbon\Carbon::today())
-                        <div class="d-flex align-items-center justify-content-start col-1">
-                          <span>
-                            <div class="text-lime">{{ Carbon\Carbon::parse($day->date)->locale('cs')->dayName }}</div>
-                          </span>
-                        </div>
-                      @else
-                        <div class="d-flex align-items-center justify-content-start col-1">
-                          <span>
-                            <div class="text-azure">{{ Carbon\Carbon::parse($day->date)->locale('cs')->dayName }}</div>
-                          </span>
-                        </div>
-                      @endif
-                      @auth
-                        <div class="col-12 col-lg-4">
-                          <div class="text-blue"> {{ $day->jip }}</div>
-                          <div class="text-azure">{{ $day->jip_mobile }}</div>
-                        </div>
-                        <div class="col-12 col-lg-5">
-                          <select class="form-select edit" name="jip[{{ $day->id }}]" data-id="{{ $day->id }}">
-                            <option value="">Změnit lékaře</option>
-                            @foreach ($doctorsJip as $doctor)
-                              <option value="{{ $doctor->title_preffix }} {{ $doctor->last_name }} {{ substr($doctor->first_name, 0, 1) }}."
-                                @if (old('jip[' . $day->id . ']') == $doctor->title_preffix . ' ' . $doctor->last_name . ' ' . substr($doctor->first_name, 0, 1) . '.') selected @endif data-mobile="{{ $doctor->mobile }}">
-                                {{ $doctor->title_preffix }} {{ $doctor->last_name }} {{ substr($doctor->first_name, 0, 1) }}.
-                              </option>
-                            @endforeach
-                          </select>
-                        </div>
-                      @else
-                        <div class="d-flex-column align-items-center justify-content-center col-3">
-                          <div class="text-truncate fw-bold">
-                            {{ $day->jip }}
-                          </div>
-                          <div class="text-azure text-start">
-                            {{ $day->jip_mobile }}
-                          </div>
-                        </div>
-                        <div class="d-flex-column align-items-center justify-content-start col-4">
-                          <div class="text-truncate fw-bold">
-                            {{ $day->jip }}
-                          </div>
-                          <div class="text-azure text-start">
-                            {{ $day->jip_mobile }}
-                          </div>
-                        </div>
-                      @endauth
                     </div>
-                  </div>
-                @endforeach
+                  @endforeach
+                </div>
               </div>
             </div>
           </div>
+          <!-- Page End -->
         </div>
-        <!-- Page End -->
+        <!-- Page Wrapper End -->
       </div>
-      <!-- Page Wrapper End -->
     </div>
-  </div>
-@endsection
+  @endsection
 
-@section('scripts')
-  <script>
-    $('.edit').on('change', function() {
-      var value = $(this).val();
-      var mobile = $(this).find(":selected").data('mobile');
-      var id = $(this).data('id');
-      $.ajax({
-        type: 'POST',
-        headers: {
-          'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-        },
-        url: "/sluzby/jip/update/" + id,
-        data: {
-          jip_mobile: mobile,
-          jip: value,
-          id: id
-        },
-        dataType: "json",
-        success: function(data) {
-          console.log('success')
-          location.reload()
-        }
+  @section('scripts')
+    <script>
+      $('.edit').on('change', function() {
+        var value = $(this).val();
+        var mobile = $(this).find(":selected").data('mobile');
+        var id = $(this).data('id');
+        $.ajax({
+          type: 'POST',
+          headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+          },
+          url: "/sluzby/jip/update/" + id,
+          data: {
+            jip_mobile: mobile,
+            jip: value,
+            id: id
+          },
+          dataType: "json",
+          success: function(data) {
+            console.log('success')
+            location.reload()
+          }
+        });
       });
-    });
-  </script>
-@endsection
+    </script>
+  @endsection

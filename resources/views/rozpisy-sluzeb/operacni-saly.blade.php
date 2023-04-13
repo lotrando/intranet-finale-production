@@ -89,7 +89,7 @@
   <div class="page-body">
     <div class="container-fluid">
       <div class="row p-2">
-        <div class="col-12 col-xl-4 mt-1">
+        <div class="col-12 col-xl-6 mt-1">
           <div class="card">
             <div class="card-header bg-{{ $categorie->color }}-lt text-left">
               <div class="d-flex justify-item-center align-items-center">
@@ -144,25 +144,48 @@
                         </div>
                       @endif
                       @auth
-                        <div class="col-12 col-lg-4">
-                          <div class="text-blue"> {{ $day->operacni_saly }}</div>
-                          <div class="text-azure">{{ $day->os_mobile }}</div>
-                        </div>
-                        <div class="col-12 col-lg-5">
-                          <select class="form-select edit" name="operacni-saly[{{ $day->id }}]" data-id="{{ $day->id }}">
+                        <div class="col-12 col-lg-3">
+                          <select class="form-select edit-a" name="os_a[{{ $day->id }}]" data-id="{{ $day->id }}">
                             <option value="">Změnit lékaře</option>
-                            @foreach ($doctorsAll as $doctor)
-                              <option value="{{ $doctor->title_preffix . ' ' . $doctor->last_name }}" @if (old('operacni-saly[' . $day->id . ']') == $doctor->title_preffix . ' ' . $doctor->last_name) selected @endif
+                            @foreach ($os_sestry as $doctor)
+                              <option value="{{ $doctor->last_name . ' ' . $doctor->first_name }}" @if ($day->os_a == $doctor->last_name . ' ' . $doctor->first_name) selected @endif
                                 data-mobile="{{ $doctor->mobile }}">
-                                {{ $doctor->title_preffix }} {{ $doctor->last_name }}
+                                {{ $doctor->last_name }} {{ $doctor->first_name }}
+                              </option>
+                            @endforeach
+                          </select>
+                        </div>
+                        <div class="col-12 col-lg-3">
+                          <select class="form-select edit-b" name="os_b[{{ $day->id }}]" data-id="{{ $day->id }}">
+                            <option value="">Změnit lékaře</option>
+                            @foreach ($os_sestry as $doctor)
+                              <option value="{{ $doctor->last_name . ' ' . $doctor->first_name }}" @if ($day->os_b == $doctor->last_name . ' ' . $doctor->first_name) selected @endif
+                                data-mobile="{{ $doctor->mobile }}">
+                                {{ $doctor->last_name }} {{ $doctor->first_name }}
+                              </option>
+                            @endforeach
+                          </select>
+                        </div>
+                        <div class="col-12 col-lg-3">
+                          <select class="form-select edit-c" name="os_c[{{ $day->id }}]" data-id="{{ $day->id }}">
+                            <option value="">Změnit lékaře</option>
+                            @foreach ($os_sestry as $doctor)
+                              <option value="{{ $doctor->last_name . ' ' . $doctor->first_name }}" @if ($day->os_c == $doctor->last_name . ' ' . $doctor->first_name) selected @endif
+                                data-mobile="{{ $doctor->mobile }}">
+                                {{ $doctor->last_name }} {{ $doctor->first_name }}
                               </option>
                             @endforeach
                           </select>
                         </div>
                       @else
-                        <div class="col-7 d-flex align-items-center justify-content-start">
-                          <div class="text-truncate fw-bold">{{ $day->operacni_saly }}</div>
-                          <div class="text-azure">{{ $day->os_mobile }}</div>
+                        <div class="col-2 d-flex align-items-center justify-content-start">
+                          <div class="text-truncate fw-bold">{{ $day->os_a }}</div>
+                        </div>
+                        <div class="col-2 d-flex align-items-center justify-content-start">
+                          <div class="text-truncate fw-bold">{{ $day->os_b }}</div>
+                        </div>
+                        <div class="col-2 d-flex align-items-center justify-content-start">
+                          <div class="text-truncate fw-bold">{{ $day->os_c }}</div>
                         </div>
                       @endauth
                     </div>
@@ -172,90 +195,7 @@
             </div>
           </div>
         </div>
-        <div class="col-12 col-xl-4 mt-1">
-          <div class="card">
-            <div class="card-header bg-{{ $categorie->color }}-lt text-left">
-              <div class="d-flex justify-item-center align-items-center">
-                <div class="avatar bg-{{ $categorie->color }}-lt col-auto">
-                  <svg class="icon text-{{ $categorie->color }}" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                    fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                    <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4"></path>
-                    <circle cx="18" cy="18" r="4"></circle>
-                    <path d="M15 3v4"></path>
-                    <path d="M7 3v4"></path>
-                    <path d="M3 11h16"></path>
-                    <path d="M18 16.496v1.504l1 1"></path>
-                  </svg>
-                </div>
-                <div>
-                  <h2 class="ms-2 col-auto mb-0">{{ $categorie->category_name }} - Předešlý měsíc</h2>
-                </div>
-              </div>
-            </div>
-            <div class="card-body card-body-scrollable card-body-scrollable-shadow">
-              <div class="divide-y">
-                @foreach ($daylistPrev as $day)
-                  <div>
-                    <div class="row d-flex align-items-center justify-content-between">
-                      <div class="col-auto">
-                        @if (date('N', strtotime($day->date)) >= 6)
-                          <span class="avatar bg-pink-lt"><strong>{{ Carbon\Carbon::parse($day->date)->format('d|m') }}</strong></span>
-                        @elseif (Carbon\Carbon::parse($day->date) == Carbon\Carbon::today())
-                          <span class="avatar bg-lime-lt"><strong>{{ Carbon\Carbon::parse($day->date)->format('d|m') }}</strong></span>
-                        @else
-                          <span class="avatar bg-blue-lt"><strong>{{ Carbon\Carbon::parse($day->date)->format('d|m') }}</strong></span>
-                        @endif
-                      </div>
-                      @if (date('N', strtotime($day->date)) >= 6)
-                        <div class="d-flex align-items-center justify-content-start col-1">
-                          <span>
-                            <div class="text-pink">{{ Carbon\Carbon::parse($day->date)->locale('cs')->dayName }}</div>
-                          </span>
-                        </div>
-                      @elseif (Carbon\Carbon::parse($day->date) == Carbon\Carbon::today())
-                        <div class="d-flex align-items-center justify-content-start col-1">
-                          <span>
-                            <div class="text-lime">{{ Carbon\Carbon::parse($day->date)->locale('cs')->dayName }}</div>
-                          </span>
-                        </div>
-                      @else
-                        <div class="d-flex align-items-center justify-content-start col-1">
-                          <span>
-                            <div class="text-azure">{{ Carbon\Carbon::parse($day->date)->locale('cs')->dayName }}</div>
-                          </span>
-                        </div>
-                      @endif
-                      @auth
-                        <div class="col-12 col-lg-4">
-                          <div class="text-blue"> {{ $day->operacni_saly }}</div>
-                          <div class="text-azure">{{ $day->os_mobile }}</div>
-                        </div>
-                        <div class="col-12 col-lg-5">
-                          <select class="form-select edit" name="operacni-saly[{{ $day->id }}]" data-id="{{ $day->id }}">
-                            <option value="">Změnit lékaře</option>
-                            @foreach ($doctorsAll as $doctor)
-                              <option value="{{ $doctor->title_preffix . ' ' . $doctor->last_name }}" @if (old('operacni-saly[' . $day->id . ']') == $doctor->title_preffix . ' ' . $doctor->last_name) selected @endif
-                                data-mobile="{{ $doctor->mobile }}">
-                                {{ $doctor->title_preffix }} {{ $doctor->last_name }}
-                              </option>
-                            @endforeach
-                          </select>
-                        </div>
-                      @else
-                        <div class="col-7 d-flex align-items-center justify-content-start">
-                          <div class="text-truncate fw-bold">{{ $day->operacni_saly }}</div>
-                          <div class="text-azure">{{ $day->os_mobile }}</div>
-                        </div>
-                      @endauth
-                    </div>
-                  </div>
-                @endforeach
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-xl-4 mt-1">
+        <div class="col-12 col-xl-6 mt-1">
           <div class="card">
             <div class="card-header bg-{{ $categorie->color }}-lt text-left">
               <div class="d-flex justify-item-center align-items-center">
@@ -310,25 +250,48 @@
                         </div>
                       @endif
                       @auth
-                        <div class="col-12 col-lg-4">
-                          <div class="text-blue"> {{ $day->operacni_saly }}</div>
-                          <div class="text-azure">{{ $day->os_mobile }}</div>
-                        </div>
-                        <div class="col-12 col-lg-5">
-                          <select class="form-select edit" name="operacni-saly[{{ $day->id }}]" data-id="{{ $day->id }}">
+                        <div class="col-12 col-lg-3">
+                          <select class="form-select edit-a" name="os_a[{{ $day->id }}]" data-id="{{ $day->id }}">
                             <option value="">Změnit lékaře</option>
-                            @foreach ($doctorsAll as $doctor)
-                              <option value="{{ $doctor->title_preffix . ' ' . $doctor->last_name }}" @if (old('operacni-saly[' . $day->id . ']') == $doctor->title_preffix . ' ' . $doctor->last_name) selected @endif
+                            @foreach ($os_sestry as $doctor)
+                              <option value="{{ $doctor->last_name . ' ' . $doctor->first_name }}" @if ($day->os_a == $doctor->last_name . ' ' . $doctor->first_name) selected @endif
                                 data-mobile="{{ $doctor->mobile }}">
-                                {{ $doctor->title_preffix }} {{ $doctor->last_name }}
+                                {{ $doctor->last_name }} {{ $doctor->first_name }}
+                              </option>
+                            @endforeach
+                          </select>
+                        </div>
+                        <div class="col-12 col-lg-3">
+                          <select class="form-select edit-b" name="os_b[{{ $day->id }}]" data-id="{{ $day->id }}">
+                            <option value="">Změnit lékaře</option>
+                            @foreach ($os_sestry as $doctor)
+                              <option value="{{ $doctor->last_name . ' ' . $doctor->first_name }}" @if ($day->os_b == $doctor->last_name . ' ' . $doctor->first_name) selected @endif
+                                data-mobile="{{ $doctor->mobile }}">
+                                {{ $doctor->last_name }} {{ $doctor->first_name }}
+                              </option>
+                            @endforeach
+                          </select>
+                        </div>
+                        <div class="col-12 col-lg-3">
+                          <select class="form-select edit-c" name="os_c[{{ $day->id }}]" data-id="{{ $day->id }}">
+                            <option value="">Změnit lékaře</option>
+                            @foreach ($os_sestry as $doctor)
+                              <option value="{{ $doctor->last_name . ' ' . $doctor->first_name }}" @if ($day->os_c == $doctor->last_name . ' ' . $doctor->first_name) selected @endif
+                                data-mobile="{{ $doctor->mobile }}">
+                                {{ $doctor->last_name }} {{ $doctor->first_name }}
                               </option>
                             @endforeach
                           </select>
                         </div>
                       @else
-                        <div class="col-7 d-flex align-items-center justify-content-start">
-                          <div class="text-truncate fw-bold">{{ $day->operacni_saly }}</div>
-                          <div class="text-azure">{{ $day->os_mobile }}</div>
+                        <div class="col-2 d-flex align-items-center justify-content-start">
+                          <div class="text-truncate fw-bold">{{ $day->os_a }}</div>
+                        </div>
+                        <div class="col-2 d-flex align-items-center justify-content-start">
+                          <div class="text-truncate fw-bold">{{ $day->os_b }}</div>
+                        </div>
+                        <div class="col-2 d-flex align-items-center justify-content-start">
+                          <div class="text-truncate fw-bold">{{ $day->os_c }}</div>
                         </div>
                       @endauth
                     </div>
@@ -347,9 +310,8 @@
 
 @section('scripts')
   <script>
-    $('.edit').on('change', function() {
+    $('.edit-a').on('change', function() {
       var value = $(this).val();
-      var mobile = $(this).find(":selected").data('mobile');
       var id = $(this).data('id');
       $.ajax({
         type: 'POST',
@@ -358,8 +320,49 @@
         },
         url: "/sluzby/operacni-saly/update/" + id,
         data: {
-          os_mobile: mobile,
-          operacni_saly: value,
+          os_a: value,
+          id: id
+        },
+        dataType: "json",
+        success: function(data) {
+          console.log('success')
+          location.reload()
+        }
+      });
+    });
+
+    $('.edit-b').on('change', function() {
+      var value = $(this).val();
+      var id = $(this).data('id');
+      $.ajax({
+        type: 'POST',
+        headers: {
+          'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: "/sluzby/operacni-saly/update/" + id,
+        data: {
+          os_b: value,
+          id: id
+        },
+        dataType: "json",
+        success: function(data) {
+          console.log('success')
+          location.reload()
+        }
+      });
+    });
+
+    $('.edit-c').on('change', function() {
+      var value = $(this).val();
+      var id = $(this).data('id');
+      $.ajax({
+        type: 'POST',
+        headers: {
+          'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: "/sluzby/operacni-saly/update/" + id,
+        data: {
+          os_c: value,
           id: id
         },
         dataType: "json",

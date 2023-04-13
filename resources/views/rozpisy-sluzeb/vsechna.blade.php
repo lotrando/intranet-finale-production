@@ -126,25 +126,25 @@
                         @endif
                       </div>
                       @if (date('N', strtotime($day->date)) >= 6)
-                        <div class="d-flex align-items-center justify-content-start col-2">
+                        <div class="d-flex align-items-center justify-content-start col-1">
                           <span>
                             <div class="text-pink">{{ Carbon\Carbon::parse($day->date)->locale('cs')->dayName }}</div>
                           </span>
                         </div>
                       @elseif (Carbon\Carbon::parse($day->date) == Carbon\Carbon::today())
-                        <div class="d-flex align-items-center justify-content-start col-2">
+                        <div class="d-flex align-items-center justify-content-start col-1">
                           <span>
                             <div class="text-lime">{{ Carbon\Carbon::parse($day->date)->locale('cs')->dayName }}</div>
                           </span>
                         </div>
                       @else
-                        <div class="d-flex align-items-center justify-content-start col-2">
+                        <div class="d-flex align-items-center justify-content-start col-1">
                           <span>
                             <div class="text-blue">{{ Carbon\Carbon::parse($day->date)->locale('cs')->dayName }}</div>
                           </span>
                         </div>
                       @endif
-                      <div class="d-flex-column align-items-center justify-content-center col-1">
+                      <div class="d-flex-column align-items-center justify-content-center col-3">
                         <div class="description text-pink text-center">Žurnalní služby</div>
                         <div class="text-truncate description text-center">
                           {{ $day->zurnalni_sluzby }}
@@ -171,7 +171,7 @@
                           {{ $day->ortopedie_mobile }}
                         </div>
                       </div>
-                      <div class="d-flex-column col-1 align-items-center justify-content-center">
+                      {{-- <div class="d-flex-column col-1 align-items-center justify-content-center">
                         <div class="description text-yellow text-center">Operační sály</div>
                         <div class="text-truncate description text-center">
                           {{ $day->operacni_saly }}
@@ -179,7 +179,7 @@
                         <div class="text-truncate description text-center">
                           {{ $day->os_mobile }}
                         </div>
-                      </div>
+                      </div> --}}
                       <div class="d-flex-column col-1 align-items-center justify-content-center">
                         <div class="description text-blue text-center">Interna</div>
                         <div class="description text-truncate text-center">
