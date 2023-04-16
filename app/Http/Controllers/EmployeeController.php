@@ -279,18 +279,18 @@ class EmployeeController extends Controller
         if ($request->ajax()) {
             $output = "";
             $employees = Employee::join('departments', 'department_id', '=', 'departments.id')
-                ->join('jobs', 'job_id', '=', 'jobs.id')
-                ->where('personal_number', 'LIKE', '%' . $request->search . "%")
-                ->orWhere('last_name', 'LIKE', '%' . $request->search . "%")
-                ->orwhere('first_name', 'LIKE', '%' . $request->search . "%")
-                ->orwhere('phone', 'LIKE', '%' . $request->search . "%")
-                ->orwhere('email', 'LIKE', '%' . $request->search . "%")
-                ->orwhere('department_name', 'LIKE', '%' . $request->search . "%")
-                ->orwhere('job_title', 'LIKE', '%' . $request->search . "%")
-                ->orwhere('mobile', 'LIKE', '%' . $request->search . "%")
-                ->orwhere('title_preffix', 'LIKE', '%' . $request->search . "%")
-                ->get()->where('status', 'Aktivní')->sortBy('last_name');
-            if ($employees) {
+                ->join('jobs', 'job_id', '=', 'jobs.id')->orderBy('last_name')
+                ->where('personal_number', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('last_name', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('first_name', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('phone', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('email', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('department_name', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('job_title', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('title_preffix', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('title_suffix', 'LIKE', '%' . $request->search . '%')
+                ->get()->where('status', 'Aktivní');
+            if ($employees->isNotEmpty()) {
                 $output .=
                     '<div>
                         <div class="col mt-2">
@@ -303,7 +303,7 @@ class EmployeeController extends Controller
 
                 foreach ($employees as $employee) {
                     $output .=
-                        '<div class="col-12 col-md-6 col-lg-6">
+                        '<div class="col-12 col-md-3">
                         <div class="card card-sm mt-2 mb-2 shadow-sm">
                                 <div class="card-body bg-' . $employee->department->color_id . '-lt">
                                 <div class="row align-items-top">

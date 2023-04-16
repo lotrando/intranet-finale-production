@@ -613,7 +613,7 @@ class PageController extends Controller
 
         $daylistNext = DB::table('calendar')
             ->where('date', '>=', $now->endOfMonth()->addMonth()->format('Y-m-d'))
-            ->where('date', '<', $now->endOfMonth()->format('Y-m-d'))
+            ->where('date', '<=', $now->endOfMonth()->format('Y-m-d'))
             ->get();
 
         $today = DB::table('calendar')->where('date', Carbon::now()->format('y-m-d'))->get();
@@ -658,9 +658,9 @@ class PageController extends Controller
         }
 
         if (Auth::user()) {
-            $documents = Document::with('category', 'user')->where('category_id', $id)->orderBy('revision_date', 'desc')->get();
+            $documents = Document::with('category', 'user')->where('category_id', $id)->orderBy('created_at', 'desc')->get();
         } else {
-            $documents = Document::with('category', 'user')->where('status', 'Schváleno')->where('category_id', $id)->orderBy('revision_date', 'desc')->get();
+            $documents = Document::with('category', 'user')->where('status', 'Schváleno')->where('category_id', $id)->orderBy('created_at', 'desc')->get();
         }
 
         return view('porady.index', [

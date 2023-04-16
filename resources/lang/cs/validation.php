@@ -144,7 +144,7 @@ return [
         'upresneni'         => 'Upřesnění k jiný',
         'druh_zraneni'      => 'Příznaky po pádu',
         'attachment'        => 'Soubor',
-        'name'              => 'Jméno',
+        'name'              => 'Pole jméno',
         'revision'          => 'Pole Revize',
         'position'          => 'Pole pozice',
         'add_position'      => 'Číslo přílohy',

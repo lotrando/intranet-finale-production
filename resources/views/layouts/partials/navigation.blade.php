@@ -20,8 +20,8 @@
             {{-- Oznámení Dropdown --}}
             <li class="nav-item dropdown {{ request()->segment(1) == 'oznameni' ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="top"
               data-bs-original-title="Co se děje na intranetu KHN">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="#" role="button" aria-expanded="false">
-                <span class="nav-link-icon d-inline-block d-mg-inline-block d-lg-none d-xl-inline-block">
+              <a class="nav-link" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="" role="button" aria-expanded="false">
+                <span class="nav-link-icon d-inline-block d-sm-inline-block d-mg-none d-lg-none d-xl-none d-xxl-inline-block">
                   <svg class="icon icon-tabler text-red" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                     stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -117,9 +117,8 @@
             {{-- Stravování --}}
             <li class="nav-item dropdown {{ request()->segment(1) == 'stravovani' ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="top"
               data-bs-original-title="Nabídky stravovacího provozu">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="#" role="button"
-                aria-expanded="false">
-                <span class="nav-link-icon d-inline-block d-lg-inline-block d-lg-none d-xl-inline-block">
+              <a class="nav-link" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="#" role="button" aria-expanded="false">
+                <span class="nav-link-icon d-inline-block d-sm-inline-block d-mg-none d-lg-none d-xl-none d-xxl-inline-block">
                   <svg class="icon icon-tabler icon-tabler-tools-kitchen-2 text-cyan" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
                     stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -175,7 +174,7 @@
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Email KHN" href="https://email.khn.cz"
                 target="_blank">
-                <span class="nav-link-icon d-inline-block d-lg-inline-block d-lg-none d-xl-inline-block">
+                <span class="nav-link-icon d-inline-block d-sm-inline-block d-mg-none d-lg-none d-xl-none d-xxl-inline-block">
                   <svg class="icon icon-tabler icon-tabler-mail text-yellow" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
                     stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -190,9 +189,8 @@
             </li>
             <li class="nav-item dropdown {{ request()->segment(1) == 'rozpisy-sluzeb' ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="top"
               data-bs-original-title="Rozpisy služeb">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="" role="button"
-                aria-expanded="false">
-                <span class="nav-link-icon d-inline-block d-lg-inline-block d-lg-none d-xl-inline-block">
+              <a class="nav-link" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="" role="button" aria-expanded="false">
+                <span class="nav-link-icon d-inline-block d-sm-inline-block d-mg-none d-lg-none d-xl-none d-xxl-inline-block">
                   <svg class="icon text-purple" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                     stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -224,9 +222,8 @@
             </li>
             <li class="nav-item dropdown {{ request()->segment(1) == 'dokumenty' ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="top"
               data-bs-original-title="Ddokumentace nemocnice">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="#" role="button"
-                aria-expanded="false">
-                <span class="nav-link-icon d-inline-block d-lg-inline-block d-lg-none d-xl-inline-block">
+              <a class="nav-link" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="#" role="button" aria-expanded="false">
+                <span class="nav-link-icon d-inline-block d-sm-inline-block d-mg-none d-lg-none d-xl-none d-xxl-inline-block">
                   <svg class="icon text-pink" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                     stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -257,9 +254,8 @@
             </li>
             <li class="nav-item dropdown {{ request()->segment(1) == 'standardy' ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="top"
               data-bs-original-title="Standardy nemocnice">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="#" role="button"
-                aria-expanded="false">
-                <span class="nav-link-icon d-inline-block d-lg-inline-block d-lg-none d-xl-inline-block">
+              <a class="nav-link" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="#" role="button" aria-expanded="false">
+                <span class="nav-link-icon d-inline-block d-sm-inline-block d-mg-none d-lg-none d-xl-none d-xxl-inline-block">
                   <svg class="icon text-purple" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                     stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -290,7 +286,7 @@
             <li class="nav-item dropdown {{ request()->segment(1) == 'isp' ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="top"
               data-bs-original-title="Informované souhlasy KHN a.s.">
               <a class="nav-link" href="{{ route('isp') }}">
-                <span class="nav-link-icon d-inline-block d-lg-inline-block d-lg-none d-xl-inline-block">
+                <span class="nav-link-icon d-inline-block d-sm-inline-block d-mg-none d-lg-none d-xl-none d-xxl-inline-block">
                   <svg class="icon text-azure" width="40" height="40" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                     stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -306,9 +302,8 @@
             </li>
             <li class="nav-item dropdown {{ request()->segment(1) == 'bozp' ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="top"
               data-bs-original-title="BOZP a PO dokumenty">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="" role="button"
-                aria-expanded="false">
-                <span class="nav-link-icon d-inline-block d-lg-inline-block d-lg-none d-xl-inline-block">
+              <a class="nav-link" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="" role="button" aria-expanded="false">
+                <span class="nav-link-icon d-inline-block d-sm-inline-block d-mg-none d-lg-none d-xl-none d-xxl-inline-block">
                   <svg class="icon text-red" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                     stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -340,9 +335,8 @@
             </li>
             <li class="nav-item dropdown {{ request()->segment(1) == 'indikatory-kvality' ? 'active' : '' }}" data-bs-toggle="tooltip"
               data-bs-placement="top" data-bs-original-title="Indikátory kvality">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="" role="button"
-                aria-expanded="false">
-                <span class="nav-link-icon d-inline-block d-lg-inline-block d-lg-none d-xl-inline-block">
+              <a class="nav-link" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="" role="button" aria-expanded="false">
+                <span class="nav-link-icon d-inline-block d-sm-inline-block d-mg-none d-lg-none d-xl-none d-xxl-inline-block">
                   <svg class="icon text-blue" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                     stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -394,9 +388,8 @@
             </li>
             <li class="nav-item dropdown {{ request()->segment(1) == 'akreditace' ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="top"
               data-bs-original-title="Akreditace">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="" role="button"
-                aria-expanded="false">
-                <span class="nav-link-icon d-inline-block d-lg-inline-block d-lg-none d-xl-inline-block">
+              <a class="nav-link" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="" role="button" aria-expanded="false">
+                <span class="nav-link-icon d-inline-block d-sm-inline-block d-mg-none d-lg-none d-xl-none d-xxl-inline-block">
                   <svg class="icon text-purple" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                     stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -427,9 +420,8 @@
             </li>
             <li class="nav-item dropdown {{ request()->segment(1) == 'ridici-akty' ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="top"
               data-bs-original-title="Řídící akty">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="" role="button"
-                aria-expanded="false">
-                <span class="nav-link-icon d-inline-block d-lg-inline-block d-lg-none d-xl-inline-block">
+              <a class="nav-link" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="" role="button" aria-expanded="false">
+                <span class="nav-link-icon d-inline-block d-sm-inline-block d-mg-none d-lg-none d-xl-none d-xxl-inline-block">
                   <svg class="icon text-pink" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
                     stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -461,9 +453,8 @@
             </li>
             <li class="nav-item dropdown {{ request()->segment(1) == 'porady' ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="top"
               data-bs-original-title="Zápisy z porad">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="" role="button"
-                aria-expanded="false">
-                <span class="nav-link-icon d-inline-block d-lg-inline-block d-lg-none d-xl-inline-block">
+              <a class="nav-link" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="" role="button" aria-expanded="false">
+                <span class="nav-link-icon d-inline-block d-sm-inline-block d-mg-none d-lg-none d-xl-none d-xxl-inline-block">
                   <svg class="icon text-teal" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                     stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -494,9 +485,8 @@
             </li>
             <li class="nav-item dropdown {{ request()->segment(1) == 'media' ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="top"
               data-bs-original-title="Radio, Video, Překladatelé...">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="#" role="button"
-                aria-expanded="false">
-                <span class="nav-link-icon d-inline-block d-lg-inline-block d-lg-none d-xl-inline-block">
+              <a class="nav-link" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="#" role="button" aria-expanded="false">
+                <span class="nav-link-icon d-inline-block d-sm-inline-block d-mg-none d-lg-none d-xl-none d-xxl-inline-block">
                   <svg class="icon icon-tabler icon-tabler-device-tv-old text-lime" width="40" height="40" viewBox="0 0 24 24" stroke-width="21"
                     stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -573,7 +563,7 @@
                     </span>
                   </a>
                   <div class="dropend">
-                    <a class="dropdown-item dropdown-toggle show" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="#" role="button"
+                    <a class="dropdown-item show" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="#" role="button"
                       aria-expanded="true">
                       <span class="nav-link-icon d-md-none d-lg-inline-block">
                         <svg class="icon text-pink" width="40" height="40" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
@@ -605,7 +595,7 @@
                     </div>
                   </div>
                   <div class="dropend">
-                    <a class="dropdown-item dropdown-toggle show" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="#" role="button"
+                    <a class="dropdown-item show" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="#" role="button"
                       aria-expanded="true">
                       <span class="nav-link-icon d-md-none d-lg-inline-block">
                         <svg class="icon icon-tabler icon-tabler-headset text-green" width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
@@ -657,9 +647,8 @@
             </li>
             <li class="nav-item dropdown {{ request()->segment(1) == 'moznosti' ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="top"
               data-bs-original-title="Další volby">
-              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="#" role="button"
-                aria-expanded="false">
-                <span class="nav-link-icon d-inline-block d-md-inline-block d-lg-inline-block d-lg-none d-xl-inline-block">
+              <a class="nav-link" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="#" role="button" aria-expanded="false">
+                <span class="nav-link-icon d-inline-block d-sm-inline-block d-mg-none d-lg-none d-xl-none d-xxl-inline-block">
                   <svg class="icon text-yellow" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                     stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -705,7 +694,7 @@
                         {{ __('Employees') }}
                       </span>
                     </a>
-                    <a class="dropdown-item dropdown-toggle show" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="#" role="button"
+                    <a class="dropdown-item show" data-bs-toggle="dropdown" data-bs-auto-close="outside" href="#" role="button"
                       aria-expanded="true">
                       <span class="nav-link-icon d-md-none d-lg-inline-block">
                         <svg class="icon text-azure" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
@@ -776,7 +765,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Odbory KHN a.s." href="{{ route('zvos') }}">
-                <span class="nav-link-icon d-inline-block d-lg-inline-block d-lg-none d-xl-inline-block">
+                <span class="nav-link-icon d-inline-block d-sm-inline-block d-mg-none d-lg-none d-xl-none d-xxl-inline-block">
                   <svg class="icon text-pink" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                     stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>

@@ -308,20 +308,17 @@ class DocumentController extends Controller
             if (Auth::check()) {
                 $documents = Document::with('category', 'addons')
                     ->orderBy('name')
-                    ->orWhere('unique_code', 'LIKE', '%' . $request->search . "%")
-                    ->orWhere('name', 'LIKE', '%' . $request->search . "%")
-                    ->orWhere('description', 'LIKE', '%' . $request->search . "%")
-                    ->orWhere('tags', 'LIKE', '%' . $request->search . "%")
-                    ->get()->where('status', 'Schváleno');;
+                    ->orWhere('name', 'LIKE', '%' . $request->search . '%')
+                    ->orWhere('description', 'LIKE', '%' . $request->search . '%')
+                    ->orWhere('tags', 'LIKE', '%' . $request->search . '%')
+                    ->get()->sortBy('category_id');
             } else {
                 $documents = Document::with('category', 'addons')
                     ->orderBy('name')
-                    ->orWhere('unique_code', 'LIKE', '%' . $request->search . "%")
-                    ->orWhere('name', 'LIKE', '%' . $request->search . "%")
-                    ->orWhere('description', 'LIKE', '%' . $request->search . "%")
-                    ->orWhere('tags', 'LIKE', '%' . $request->search . "%")
-                    ->whereStatus('Schváleno')
-                    ->get();
+                    ->orWhere('name', 'LIKE', '%' . $request->search . '%')
+                    ->orWhere('description', 'LIKE', '%' . $request->search . '%')
+                    ->orWhere('tags', 'LIKE', '%' . $request->search . '%')
+                    ->get()->where('status', 'Schváleno')->sortBy('category_id');
             }
             $output .= '
                     <div>
@@ -336,6 +333,19 @@ class DocumentController extends Controller
                     ';
 
             foreach ($documents as $document) {
+                if (substr($document->file, strpos($document->file, '.') + 1) == 'pdf') {
+                    $ext = "pdf.png";
+                    $alt = "pdf";
+                } elseif (substr($document->file, strpos($document->file, '.') + 1) == "xlsx") {
+                    $ext = "xlsx.png";
+                    $alt = "xlsx";
+                } elseif (substr($document->file, strpos($document->file, '.') + 1) == "docx") {
+                    $ext = "docx.png";
+                    $alt = "docx";
+                } elseif (substr($document->file, strpos($document->file, '.') + 1) == "pptx") {
+                    $ext = "pptx.png";
+                    $alt = "pptx";
+                }
                 $output .=
                     '<div class="accordion-item py-1 bg-white shadow-sm">
                         <div id="test-' . $document->position . '">
@@ -354,7 +364,7 @@ class DocumentController extends Controller
                                     <div class="col-auto">
                                     <a href="/soubory/' . $document->category->category_type . '/' . $document->id . '" target="_blank">
                                         <span class="avatar bg-' . $document->category->color . '-lt">
-                                        <img src="../../img/files/pdf.png" height="32px" alt="PDF soubor" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Stáhnout standard">
+                                        <img src="../../img/files/' . $ext . '" height="32px" alt="' . $alt . ' soubor" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-original-title="Stáhnout standard">
                                         </span>
                                     </a>
                                     </div>
@@ -385,39 +395,6 @@ class DocumentController extends Controller
                                     <line x1="6" y1="15" x2="8" y2="15"></line>
                                     </svg>
                                     <span class="text-muted description">Revize:' . $document->revision . '</span>
-                                    </div>
-                                    <div class="col-auto d-xs-none d-sm-none d-lg-inline">
-                                    <span class="text-muted description">
-                                        <svg class="icon text-lime" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                        <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"></path>
-                                        <rect x="9" y="3" width="6" height="4" rx="2"></rect>
-                                        <path d="M9 12v-1h6v1"></path>
-                                        <path d="M12 11v6"></path>
-                                        <path d="M11 17h2"></path>
-                                        </svg>
-                                        Zpracoval:' . $document->processed . '
-                                    </span>
-                                    <span class="text-muted description">
-                                        <svg class="icon text-yellow" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                        <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                        <path d="M12 21h-5a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v4.5"></path>
-                                        <circle cx="16.5" cy="17.5" r="2.5"></circle>
-                                        <line x1="18.5" y1="19.5" x2="21" y2="22"></line>
-                                        </svg>
-                                        Přezkoumal:' . $document->examine . '
-                                    </span>
-                                    <span class="text-muted description">
-                                        <svg class="icon text-red" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                        <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-                                        <path d="M5 8v-3a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-5"></path>
-                                        <circle cx="6" cy="14" r="3"></circle>
-                                        <path d="M4.5 17l-1.5 5l3 -1.5l3 1.5l-1.5 -5"></path>
-                                        </svg>
-                                        Autorizoval:' . $document->authorize . '
-                                    </span>
                                     </div>
                                 </div>
                                 </div>

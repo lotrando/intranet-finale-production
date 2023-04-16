@@ -122,12 +122,12 @@
             {{-- Documents --}}
             <div>
               @foreach ($documents as $document)
-                <div class="accordion-item bg-white shadow-sm">
+                <div class="accordion-item my-0 bg-white shadow-sm">
                   <div id="test-{{ $document->id }}">
-                    <div class="accordion-body">
-                      <div class="list-group list-group-flush list-group-hoverable py-2">
+                    <div class="accordion-body p-0">
+                      <div class="list-group list-group-flush list-group-hoverable py-0">
                         <div class="list-group-item border-0 p-0">
-                          <div class="row align-items-center g-3 mx-1">
+                          <div class="row align-items-center m-1">
                             <div class="avatar bg-{{ $document->category->color }}-lt col-auto">
                               <div class="text-uppercase">
                                 {!! $document->category->svg_icon !!}
@@ -225,9 +225,9 @@
                             @endauth
                           </div>
                         </div>
-                        <div class="list-group-item py-1 px-1">
+                        <div class="list-group-item p-0">
                           <div class="row d-flex justify-content-between">
-                            <div class="col-auto">
+                            {{-- <div class="col-auto">
                               <svg class="icon text-yellow" width="24" height="24" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor"
                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -259,7 +259,7 @@
                                 <span class="badge badge-sm bg-lime-lt text-uppercase ms-auto">Aktualizováno
                                   !</span>
                               @endif
-                            </div>
+                            </div> --}}
                             <div class="d-xs-none d-sm-none d-lg-inline col-auto">
                               @auth
                                 <div class="d-xs-none d-sm-none d-lg-inline col-auto">
@@ -585,8 +585,8 @@
                               <a href="{{ route('soubory.' . $addon->category->category_type . '.addon.download', $addon->id) }}" target="_blank">
                                 <span class="avatar bg-{{ $addon->category->color }}-lt" data-bs-toggle="tooltip" data-bs-placement="top"
                                   data-bs-original-title="Stáhnout soubor">
-                                    <img src="{{ asset('img/files/pdf.png') }}" alt="PDF" height="32px">
-                                  @if(substr($addon->file, strpos($addon->file, '.') + 1) == 'xlsx')
+                                  <img src="{{ asset('img/files/pdf.png') }}" alt="PDF" height="32px">
+                                  @if (substr($addon->file, strpos($addon->file, '.') + 1) == 'xlsx')
                                     <img src="{{ asset('img/files/xlsx.png') }}" alt="XLSX" height="32px">
                                   @elseif(substr($addon->file, strpos($addon->file, '.') + 1) == 'docx')
                                     <img src="{{ asset('img/files/docx.png') }}" alt="DOCX" height="32px">
@@ -730,7 +730,8 @@
                                   MediaPrint vzor č.{{ $item->revision }} - {{ $item->description }}</p>
                               </span>
                               <div class="d-block description text-muted text-truncate">Tento dokument je předtišten a je k
-                                dispozici u paní Chrysostomidu email: <a href="mailto:chrysostomidu@khn.cz">chrysostomidu@khn.cz</a> klapka: <span class="text-azure fw-bold">315</span>
+                                dispozici u paní Chrysostomidu email: <a href="mailto:chrysostomidu@khn.cz">chrysostomidu@khn.cz</a> klapka: <span
+                                  class="text-azure fw-bold">315</span>
                               </div>
                             </div>
                           </div>
@@ -946,8 +947,7 @@
               <div class="col-9 col-lg-9 mb-2">
                 <label class="form-label">{{ __('Název přílohy') }} <small class="text-azure">usnadní
                     vyhledávání</small></label>
-                <input class="form-control" id="add_description" name="add_description" type="text"
-                  placeholder="{{ __('Konkrétní popis přílohy') }}">
+                <input class="form-control" id="add_description" name="add_description" type="text" placeholder="{{ __('Konkrétní popis přílohy') }}">
               </div>
               <div class="col-1 col-lg-2 mb-2">
                 <label class="form-label">{{ __('Revision') }}</label>
